@@ -8,6 +8,6 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.ToTable($"$Stock{nameof(Product)}");
+        builder.ToTable($"Stock{nameof(Product)}");
     }
 }

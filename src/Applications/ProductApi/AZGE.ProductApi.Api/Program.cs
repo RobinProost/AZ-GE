@@ -45,8 +45,16 @@ if (app.Environment.IsDevelopment())
         var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
         dbContext.Database.EnsureCreated();
         dbContext.Database.Migrate();
+
+        // Check if the 'Stock' table exists in the database
+        if (!dbContext.Database.CanConnect())
+        {
+            // If the table doesn't exist, ensure migrations and apply them
+
+        }
     }
 }
+
 
 app.UseSwagger();
 app.UseSwaggerUI();

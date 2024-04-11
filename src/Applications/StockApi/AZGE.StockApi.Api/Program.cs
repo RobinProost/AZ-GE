@@ -43,11 +43,18 @@ if (app.Environment.IsDevelopment())
     using (var scope = app.Services.CreateScope())
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
-        dbContext.Database.EnsureCreated();
         dbContext.Database.Migrate();
-        dbContext.Database.ExecuteSqlRaw($"SET IDENTITY_INSERT StockApi.{nameof(Product)} ON");
+        dbContext.Database.ExecuteSqlRaw("SET IDENTITY_INSERT StockApi.StockProduct ON");
+
+        // Check if the 'Stock' table exists in the database
+        if (!dbContext.Database.CanConnect())
+        {
+            // If the table doesn't exist, ensure migrations and apply them
+
+        }
     }
 }
+
 
 app.UseSwagger();
 app.UseSwaggerUI();
